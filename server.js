@@ -19,12 +19,26 @@ var remainP1Ships;
 var remainP2Ships;
 
 class Ship {
-    constructor(id, size, isDead) {
-
+    constructor(id, size) {
+        this.id = id;
+        this.size = size;
+        this.isDead = false;
+    }
+    getId() {
+        return this.id;
+    }
+    getSize() {
+        return this.size;
+    }
+    getIsDead() {
+        return this.isDead;
+    }
+    kill() {
+        this.isDead = true;
     }
 }
 
-// Fix the board size to ranks * files.
+// Fix the board size to be ranks * files.
 function fixBoard(ranks, files) {
     for(i = 0; i < ranks; i++) {
         if(!board[ranks]) {
