@@ -22,7 +22,7 @@ body {
 	width: 100%;
 }
 
-#map {
+#playerTwo {
 	display: table;
 	float: left;
     width: 20%;
@@ -34,7 +34,7 @@ body {
 	background-size: 100% 100%;
 }
 
-#blueTray {
+#playerOne {
 	display: table;
 	float: left;
 	width: 16%;
