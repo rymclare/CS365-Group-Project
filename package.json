@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/rymclare/CS365-Group-Project/issues"
   },
-  "homepage": "https://github.com/rymclare/CS365-Group-Project#readme"
+  "homepage": "https://github.com/rymclare/CS365-Group-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
 }
