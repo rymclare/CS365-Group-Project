@@ -1,4 +1,3 @@
-// Yudai
 // The client side.
 
 var socket = io();

@@ -1,4 +1,3 @@
-// Yudai.
 // The server side.
 
 var express = require("express");
@@ -11,12 +10,14 @@ app.use(express.static("pub"));
 
 var board = [];
 var time;
-var turn;
+var turn;               // 1 = "Player1's turn" 2 = "player2's turn" 
 var message = "";
-var player1;            // Player name.
-var player2;            // Player name.
-var isp1Ready;
-var isp2Ready;
+var player1;            // Player1's name.
+var player2;            // Player2's name.
+var p1Seat;             // Socket object.
+var p2Seat;             // Socket object.
+var isP1Ready;
+var isP2Ready;
 var p1Ships = [];
 var p2Ships = [];
 var gameMode;           // 0 = setup mode, 1 = game in play, 2 = game over.
@@ -62,30 +63,81 @@ function fixBoard(ranks, files) {
         if(!board[ranks]) {
             board[ranks] = [];
             for(j = 0; j < files; j++) {
-                board[i][j] = 0;
+                board[i][j] = 0;        
+                // 0 = "Not clicked yet." 1 = "Hit player1's ship." 2 = "Hit player2's ship." -1 = "Missed."
             }
         }
     }
 }
-
+// Return game state.
+function gameState() {
+    var ret = {};
+    ret.gameMode = gameMode;
+    ret.player1 = player1;
+    ret.player2 = player2;
+    ret.p1Seat = (p1Seat != null);
+    ret.p2Seat = (p2Seat != null);
+    ret.isP1Ready = isP1Ready;
+    ret.isP2Ready = isP2Ready;
+    ret.turn = turn;
+    ret.p1Ships = p1Ships;
+    ret.p2Ships = p2Ships;
+}
 // Reset.
 function resetGame() {
 	gameMode = 0;
-	isp1Ready = false;
-	isp2Ready = false;
-	turn = "";
+	isP1Ready = false;
+	isP2Ready = false;
+	turn = 0;
 	message = "The game is now reset."
 }
 
 // Communication with clients.
 io.on("connection", function(socket) {
 	console.log("Somebody connected.");
-	socket.emit("sendBack", board, message, isGameOver);
+    socket.join("spectator");
+    sendGameState();
+    
 	socket.on("disconnect", function() {
-		console.log("Somebody disconnected.");
+        console.log("Somebody disconnected.");
+        if(p1Seat == socket) {
+            p1Seat = null;
+        }
+        else if(p2Seat == socket) {
+            p2Seat = null;
+        }
+        else {
+            socket.leave("spectator");
+        }
+        sendGameState();
     });
+
+    socket.on("sitAsP1", function() {
+		if (p1Seat == null) {
+			p1Seat = socket;
+			if (p2Seat == socket) { 
+            	p2Seat = null;
+			}
+			else {
+				socket.leave("spectator");
+			}
+		}
+		sendGameState();
+    });
+    socket.on("sitAsP2", function() {
+		if (p2Seat == null) {
+			p2Seat = socket;
+			if (p1Seat == socket) { 
+            	p1Seat = null;
+			}
+			else {
+				socket.leave("spectator");
+			}
+		}
+		sendGameState();
+	});
 });
 
 server.listen(80, function() {
-    console.log("Server with socket.io is ready.");
+    console.log("Server with socket.io is ready at port 80.");
 });
