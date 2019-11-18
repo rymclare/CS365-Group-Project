@@ -18,6 +18,8 @@ var p1Seat;             // Socket object.
 var p2Seat;             // Socket object.
 var isP1Ready;
 var isP2Ready;
+var P1Tray = [];
+var P2Tray = [];
 var p1Ships = [];
 var p2Ships = [];
 var gameMode;           // 0 = setup mode, 1 = game in play, 2 = game over.
@@ -58,18 +60,17 @@ class Player {
 }
 
 // Fix the board size to be ranks * files.
-function fixBoard(ranks, files) {
+function boardSize(ranks, files) {
     for(i = 0; i < ranks; i++) {
         if(!board[ranks]) {
             board[ranks] = [];
             for(j = 0; j < files; j++) {
-                board[i][j] = 0;        
-                // 0 = "Not clicked yet." 1 = "Hit player1's ship." 2 = "Hit player2's ship." -1 = "Missed."
+                board[i][j];        
             }
         }
     }
 }
-// Return game state.
+// Return the game state.
 function gameState() {
     var ret = {};
     ret.gameMode = gameMode;
@@ -82,7 +83,17 @@ function gameState() {
     ret.turn = turn;
     ret.p1Ships = p1Ships;
     ret.p2Ships = p2Ships;
+
+    return ret;
 }
+
+// Send the game state.
+function sendGameState() {
+    if (p1Seat != null) p1Seat.emit("gameState", gameState());
+	if (p2Seat != null) p2Seat.emit("gameState", gameState());
+	io.in("spectator").emit("gameState", getGameState());
+}
+
 // Reset.
 function resetGame() {
 	gameMode = 0;
@@ -94,6 +105,8 @@ function resetGame() {
 
 // Communication with clients.
 io.on("connection", function(socket) {
+    // When someone connects, The person becomes a spectator.
+    boardSize(10, 10);
 	console.log("Somebody connected.");
     socket.join("spectator");
     sendGameState();
@@ -135,7 +148,17 @@ io.on("connection", function(socket) {
 			}
 		}
 		sendGameState();
-	});
+    });
+    socket.on("trayClicked", function(tray, row, col) {
+        if(tray == "p1Tray") {
+            if(p1Tray[row][col]) {
+                
+            }
+        }
+        else if(tray == "p2Tray") {
+
+        }
+    })
 });
 
 server.listen(80, function() {
