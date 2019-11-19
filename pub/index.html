@@ -9,16 +9,17 @@
         <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     </head>
     <body>
+		<div id="app">
         <div id="playerOne">
-
-            <div v-for = "(row, rowindex) in grid" class = "row">
-                <div v-for = "(col, colindex) in row" class = "cell" v-on:click = "shoot(rowIndex, colIndex)"></div>
-            </div>
-                    
+            <ul>
+				<li v-for="item of items">
+					{{ item.message }}
+				</li>
+			</ul>
         </div>
         <div id="playerTwo">
             <div class="title">
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
+                    <div onclick="alert('hello')" class="cell"><img src="img/blankgamepiece.png"></div>
                     <div class="cell"><img src="img/blankgamepiece.png"></div>
                     <div class="cell"><img src="img/blankgamepiece.png"></div>
                     <div class="cell"><img src="img/blankgamepiece.png"></div>
@@ -160,5 +161,8 @@
                 <div class="cell"><img src="img/blankgamepiece.png"></div>
 			</div>
 		</div>
-    </body>
+		</div>
+	</body>
+	<script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="client.js"></script>
 </html>

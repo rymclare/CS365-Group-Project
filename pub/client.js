@@ -1,15 +1,19 @@
 // The client side.
 
-var socket = io();
+/*var socket = io();
 socket.on("sendBack", function(dfs) {
     console.log("The server returned data");
     vm.board = dfs.board;
     message = ""
-});
+});*/
 
 var vm = new Vue ({
-    el: "app",
+    el: "#app",
     data: {
+        items: [
+            { message: 'Foo' },
+            { message: 'Bar' }
+          ],
         board = [],
         time,
         turn,
