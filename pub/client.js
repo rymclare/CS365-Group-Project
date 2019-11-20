@@ -10,19 +10,28 @@ socket.on("sendBack", function(dfs) {
 var vm = new Vue ({
     el: "#app",
     data: {
-        items: [
-            { message: 'Foo' },
-            { message: 'Bar' }
+        rows: [
+            { num: 'zero' },
+            { num: 'one' },
+            { num: 'two' },
+            { num: 'three' },
+            { num: 'four' },
+            { num: 'five' },
+            { num: 'six' },
+            { num: 'seven' },
+            { num: 'eight' },
+            { num: 'nine' },
+            { num: 'ten' }
           ],
-        board = [],
-        time,
-        turn,
-        message = "",
-        player1,
-        player2,
-        P1Ships = [],
-        P2Ships = [],
-        isGameOver
+        /*board: [],
+        time:,
+        turn:,
+        message: "",
+        player1:,
+        player2:,
+        P1Ships: [],
+        P2Ships: [],
+        isGameOver*/
     },
     methods: {
 

@@ -10,157 +10,160 @@
     </head>
     <body>
 		<div id="app">
-        <div id="playerOne">
-            <ul>
-				<li v-for="item of items">
-					{{ item.message }}
-				</li>
-			</ul>
-        </div>
-        <div id="playerTwo">
-            <div class="title">
-                    <div onclick="alert('hello')" class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-            </div>
-			<div class="row">
-				<div class="cell"><img src="img/one.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/miss.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
+			<div id="playerOne">
+				<div v-for="row in rows" class="row">
+					<div class="cell"><img v-bind:src="'img/' + row.num + '.png'"></div>
+					<div class="cell"><img v-bind:src="'img/' + 'b' + '.png'"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
 			</div>
-			<div class="row">
-				<div class="cell"><img src="img/two.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
+			<div id="playerTwo">
+				<div class="title">
+						<div onclick="alert('hello')" class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+						<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/one.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/miss.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/two.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/three.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/four.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/five.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/hit.png"></div>
+					<div class="cell"><img src="img/hit.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
+				<div class="row">
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+					<div class="cell"><img src="img/blankgamepiece.png"></div>
+				</div>
 			</div>
-			<div class="row">
-				<div class="cell"><img src="img/three.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-			<div class="row">
-				<div class="cell"><img src="img/four.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-			<div class="row">
-				<div class="cell"><img src="img/five.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/hit.png"></div>
-				<div class="cell"><img src="img/hit.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-			<div class="row">
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-			<div class="row">
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-			<div class="row">
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-			<div class="row">
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-			<div class="row">
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-			</div>
-		</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="vue.js"></script>
