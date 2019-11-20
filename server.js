@@ -26,13 +26,10 @@ var gameMode;           // 0 = setup mode, 1 = game in play, 2 = game over.
 
 // This class has a ship's id and its size.
 class Ship {
-    constructor(id, size) {
-        this.id = id;
+    constructor(size, owner) {
         this.size = size;
+        this.owner = owner;
         this.isDead = false;
-    }
-    getId() {
-        return this.id;
     }
     getSize() {
         return this.size;
@@ -65,11 +62,44 @@ function boardSize(ranks, files) {
         if(!board[ranks]) {
             board[ranks] = [];
             for(j = 0; j < files; j++) {
-                board[i][j];        
+                board[i][j] == null;        
             }
         }
     }
 }
+
+// Fix the tray size.
+function traySize(ranks , files) {
+    for(i = 0; i < ranks; i++) {
+        if(!tray[ranks]) {
+            tray[ranks] = [];
+            for(j = 0; j < files; j++) {
+                tray[i][j] == null;        
+            }
+        }
+    }
+}
+
+// Set the trays.
+function fillTray(tray) {
+    if(tray == p1Tray) {
+        p1Ships = [new Ship(2, "p1"), new Ship(3, "p1"), new Ship(3, "p1"), new Ship(4, "p1"), new Ships(5, "p1")];
+        for(var x = 0; x < tray.length; x++) {
+            for(var y = 0; y < tray[x].length; y++) {
+                tray[x][y] = p1Ships[x + y * tray.length];
+            }
+        }
+    }
+    else if(tray == p2tray) {
+        p2Ships = [new Ship(2, "p2"), new Ship(3, "p2"), new Ship(3, "p2"), new Ship(4, "p2"), new Ships(5, "p2")];
+        for(var x = 0; x < tray.length; x++) {
+            for(var y = 0; y < tray[x].length; y++) {
+                tray[x][y] = p2Ships[x + y * tray.length];
+            }
+        }
+    }
+}
+
 // Return the game state.
 function gameState() {
     var ret = {};
@@ -149,14 +179,16 @@ io.on("connection", function(socket) {
 		}
 		sendGameState();
     });
-    socket.on("trayClicked", function(tray, row, col) {
+    socket.on("move", function(clicks) {
         if(tray == "p1Tray") {
             if(p1Tray[row][col]) {
                 
             }
         }
         else if(tray == "p2Tray") {
+            if(p2Tray[row][col]) {
 
+            }
         }
     })
 });

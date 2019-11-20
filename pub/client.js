@@ -1,21 +1,32 @@
 // The client side.
 
-var socket = io();
+/*var socket = io();
+socket.on("sendBack", function(dfs) {
+    console.log("The server returned data");
+    vm.board = dfs.board;
+    message = ""
+});*/
 
-var vm = new Vue({
+var vm = new Vue ({
     el: "#app",
     data: {
-        board: [],
+        items: [
+            { message: 'Foo' },
+            { message: 'Bar' }
+          ],
+        board = [],
+        time,
         turn,
         time,
         message: "",
         player1,            // Player1's name.
-        player2,
+        player2,            // Player2's name.
         P1Tray: [],
-        P2Tray: [],            // Player2's name.
+        P2Tray: [],            
         p1Ships: [],
         p2Ships: [],
-        gameMode: 0 
+        gameMode: 0,
+        firstClick 
     },
     methods: {
         p1TrayClicked: function(row, col) {
@@ -36,6 +47,17 @@ var vm = new Vue({
             this.p1Ships = data.p1Ships;
             this.p2Ships = data.p2Ships;
             this.gameMode = data.gameMode;
+        },
+        click: function(area, x, y, isMouseDownHandler) {
+            if (firstClick == null && isMouseDownHandler) {
+                firstClick = {area: area, x: x, y: y};
+            }
+            else if (firstClick != null && !(x == firstClick.x && y == firstClick.y)) {
+                var secondClick = {area: area, x: x, y: y};
+                var clicks = {firstClick: firstClick, secondClick: secondClick};
+                socket.emit("move", clicks);
+                firstClick = null;
+            }
         }
     },
     computed: {
