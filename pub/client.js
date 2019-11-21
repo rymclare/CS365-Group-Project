@@ -38,12 +38,6 @@ var vm = new Vue ({
         firstClick 
     },
     methods: {
-        p1TrayClicked: function(row, col) {
-            socket.emit("trayClicked", tray, row, col, function(dfs) {
-                console.log("The server returned data for update().");
-                update(dfs);
-            })
-        },
         update: function(data) {
             this.board = data.board;
             this.turn = data.turn;
@@ -57,14 +51,17 @@ var vm = new Vue ({
             this.p2Ships = data.p2Ships;
             this.gameMode = data.gameMode;
         },
-        click: function(area, x, y, isMouseDownHandler) {
-            if (firstClick == null && isMouseDownHandler) {
+        click: function(area, x, y) {
+            if (firstClick == null) {
                 firstClick = {area: area, x: x, y: y};
             }
-            else if (firstClick != null && !(x == firstClick.x && y == firstClick.y)) {
+            else if (!(x == firstClick.x && y == firstClick.y)) {
                 var secondClick = {area: area, x: x, y: y};
                 var clicks = {firstClick: firstClick, secondClick: secondClick};
-                socket.emit("move", clicks);
+                socket.emit("move", clicks, function(dfs) {
+                    console.log("The server returned data for update().");
+                    this.update(dfs);
+                });
                 firstClick = null;
             }
         }

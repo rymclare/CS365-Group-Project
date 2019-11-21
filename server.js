@@ -26,10 +26,11 @@ var gameMode;           // 0 = setup mode, 1 = game in play, 2 = game over.
 
 // This class has a ship's id and its size.
 class Ship {
-    constructor(size, owner) {
+    constructor(size, owner, direction) {
         this.size = size;
         this.owner = owner;
         this.isDead = false;
+        this.direction = direction;
     }
     getSize() {
         return this.size;
@@ -180,13 +181,15 @@ io.on("connection", function(socket) {
 		sendGameState();
     });
     socket.on("move", function(clicks) {
-        if(tray == "p1Tray") {
-            if(p1Tray[row][col]) {
-                
+        if(clicks.firstClick.area == "p1Tray") {
+            if(p1Tray[clicks.firstClick.row][clicks.firstClick.col]) {
+                if(clicks.secondClick.area == "board") {
+                    
+                }
             }
         }
-        else if(tray == "p2Tray") {
-            if(p2Tray[row][col]) {
+        else if(clicks.firstClick.area == "p2Tray") {
+            if(p2Tray[clicks.firstClick.row][clicks.firstClick.col]) {
 
             }
         }

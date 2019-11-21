@@ -10,95 +10,6 @@
     </head>
     <body>
 		<div id="app">
-<<<<<<< HEAD
-        <div id="playerOne">
-            <ul>
-				<li v-for="item of items">
-					{{ item.message }}
-				</li>
-			</ul>
-        </div>
-        <div id="playerTwo">
-            <div class="title">
-                    <div onclick="alert('hello')" class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                </div>
-                <div class="row">
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                </div>
-                <div class="row">
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                </div>
-                <div class="row">
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                </div>
-                <div class="row">
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                    <div class="cell"><img src="img/blankgamepiece.png"></div>
-                </div>
-            </div>
-			<div class="row">
-				<div class="cell"><img src="img/one.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/miss.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-				<div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-                <div class="cell"><img src="img/blankgamepiece.png"></div>
-=======
 			<div id="playerOne">
 				<div v-for="row in rows" class="row">
 					<div class="cell"><img v-bind:src="'img/' + row.num + '.png'"></div>
@@ -108,7 +19,6 @@
 					<div class="cell"><img src="img/blankgamepiece.png"></div>
 					<div class="cell"><img src="img/blankgamepiece.png"></div>
 				</div>
->>>>>>> 5f26a3442c1cd43114a8e26a6a70c97d3dac42e3
 			</div>
 			<div id="playerTwo">
 				<div class="title">
