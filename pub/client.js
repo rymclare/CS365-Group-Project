@@ -10,69 +10,144 @@ socket.on("sendBack", function(dfs) {
 var vm = new Vue ({
     el: "#app",
     data: {
-        rows: [
-            { num: 'zero' },
-            { num: 'one' },
-            { num: 'two' },
-            { num: 'three' },
-            { num: 'four' },
-            { num: 'five' },
-            { num: 'six' },
-            { num: 'seven' },
-            { num: 'eight' },
-            { num: 'nine' },
-            { num: 'ten' }
-          ],
-        board = [],
-        time,
-        turn,
-        time,
-        message: "",
-        player1,            // Player1's name.
-        player2,            // Player2's name.
-        P1Tray: [],
-        P2Tray: [],            
-        p1Ships: [],
-        p2Ships: [],
-        gameMode: 0,
-        firstClick 
+        message: "blank",
+        a: "a",
+        ship: 0,
+        twoIP: false,
+        twoINP: true,
+        threeIP: false,
+        threeINP: true,
+        threeThreeIP: false,
+        threeThreeINP: true,
+        fourIP: false,
+        fourINP: true,
+        fiveIP: false,
+        fiveINP: true,
     },
     methods: {
-        update: function(data) {
-            this.board = data.board;
-            this.turn = data.turn;
-            this.time = data.time;
-            this.message = data.message;
-            this.player1 = data.player1;
-            this.player2 = data.player2;
-            this.p1Tray = data.p1Tray;
-            this.p2Tray = data.p2Tray;
-            this.p1Ships = data.p1Ships;
-            this.p2Ships = data.p2Ships;
-            this.gameMode = data.gameMode;
+        click: function() {
+            if (this.ship == 0){
+                this.tip = true;
+            }
         },
-        click: function(area, x, y) {
-            if (firstClick == null) {
-                firstClick = {area: area, x: x, y: y};
-            }
-            else if (!(x == firstClick.x && y == firstClick.y)) {
-                var secondClick = {area: area, x: x, y: y};
-                var clicks = {firstClick: firstClick, secondClick: secondClick};
-                socket.emit("move", clicks, function(dfs) {
-                    console.log("The server returned data for update().");
-                    this.update(dfs);
-                });
-                firstClick = null;
-            }
-        }
+        selectShipTwo: function() {
+            this.ship = 2;
+            this.twoIP = true;
+            this.twoINP = false;
+            console.log("Ship two");
+        },
+        selectShipThree: function() {
+            this.ship = 3;
+            this.threeIP = true;
+            this.threeINP = false;
+            console.log("Ship three");
+        },
+        selectShipThreeThree: function() {
+            this.ship = 33;
+            this.threeThreeIP = true;
+            this.threeThreeINP = false;
+            console.log("Ship three three");
+        },
+        selectShipFour: function() {
+            this.ship = 4;
+            this.fourIP = true;
+            this.fourINP = false;
+            console.log("Ship four");
+        },
+        selectShipFive: function() {
+            this.ship = 5;
+            this.fiveIP = true;
+            this.fiveINP = false;
+            console.log("Ship five");
+        },
     },
     computed: {
+        twoIsPlaced: function(){
+            if (this.twoIP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        twoIsNotPlaced: function(){
+            if (this.twoINP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        threeIsPlaced: function(){
+            if (this.threeIP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        threeIsNotPlaced: function(){
+            if (this.threeINP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        threeThreeIsPlaced: function(){
+            if (this.threeThreeIP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        threeThreeIsNotPlaced: function(){
+            if (this.threeThreeINP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        fourIsPlaced: function(){
+            if (this.fourIP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        fourIsNotPlaced: function(){
+            if (this.fourINP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        fiveIsPlaced: function(){
+            if (this.fiveIP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+        fiveIsNotPlaced: function(){
+            if (this.fiveINP == true){
+                return true;
+            }
+            else {
+                return false;
+            }
+        },
+    },
+});
 
-    }
-})
-
-socket.on("sendBack", function(dfs) {
+/*socket.on("sendBack", function(dfs) {
     console.log("The server returned data.");
     vm.board = dfs.board;
     message = "";
 });
+*/
