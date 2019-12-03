@@ -48,7 +48,7 @@
 					<div class="title">
 						<div v-on:click="click" class="cell"><img src="img/blank.png"></div>
 						<div v-on:click="click" class="cell"><img v-bind:src="'img/' + message + '.png'"></div>
-						<div class="cell"><img src= img/b.png></div>
+						<div class="cell"><img src="img/b.png"></div>
 						<div class="cell"><img src="img/c.png"></div>
 						<div class="cell"><img src="img/d.png"></div>
 						<div class="cell"><img src="img/e.png"></div>
@@ -60,154 +60,29 @@
 					</div>
 				</div>
 			</div>
-			
+
+			<!-- DrKow: I modified this section to make it loop through shipArray instead of having everything hard coded.  Note how the click handler uses the rowIndex and colIndex in order to communicate what got clicked on. -->
 			<div id="playerTwo">
 				<div class="title">
-						<div v-on:click="click" class="cell"><img src= img/blank.png></div>
-						<div v-on:click="click" class="cell"><img src= img/a.png></div>
-						<div class="cell"><img src="img/b.png"></div>
-						<div class="cell"><img src="img/c.png"></div>
-						<div class="cell"><img src="img/d.png"></div>
-						<div class="cell"><img src="img/e.png"></div>
-						<div class="cell"><img src="img/f.png"></div>
-						<div class="cell"><img src="img/g.png"></div>
-						<div class="cell"><img src="img/h.png"></div>
-						<div class="cell"><img src="img/i.png"></div>
-						<div class="cell"><img src="img/j.png"></div>
-				</div>
-				<div class="row">
-					<div class="cell"><img src="img/1.png"></div>
 					<div class="cell"><img src="img/blank.png"></div>
+					<div class="cell"><img src="img/a.png"></div>
+					<div class="cell"><img src="img/b.png"></div>
+					<div class="cell"><img src="img/c.png"></div>
+					<div class="cell"><img src="img/d.png"></div>
+					<div class="cell"><img src="img/e.png"></div>
+					<div class="cell"><img src="img/f.png"></div>
+					<div class="cell"><img src="img/g.png"></div>
+					<div class="cell"><img src="img/h.png"></div>
+					<div class="cell"><img src="img/i.png"></div>
+					<div class="cell"><img src="img/j.png"></div>
+				</div>
+				<div class="row" v-for="(row,rowIndex) in shipArray">
 					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell"><img src="img/blank.png"></div>
-					
+					<div class="cell" v-on:click="shootSquare(rowIndex,colIndex)" v-for="(col,colIndex) in row"><img v-bind:src="imageFor(shipArray[rowIndex][colIndex])"></div>
 				</div>
-				<div class="row">
-						<div class="cell"><img src="img/2.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/3.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/4.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/5.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/6.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/7.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/8.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/9.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				<div class="row">
-						<div class="cell"><img src="img/10.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-						<div class="cell"><img src="img/blank.png"></div>
-				</div>
-				
 			</div>
+			
+
 			<div id="trayR">
 				<div>
 					<div class="cell"><img src="img/ship2.png"></div>

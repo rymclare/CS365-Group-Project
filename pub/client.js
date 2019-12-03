@@ -23,8 +23,27 @@ var vm = new Vue ({
         fourINP: true,
         fiveIP: false,
         fiveINP: true,
+        //DrKow: I put in this line so you have an array to work with.  Having a function to generate this would be a little cleaner, but you can leave it hard-coded if you like.
+        shipArray: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
     },
     methods: {
+        //DrKow: I put this function in so you have a way of mapping a number to an image, for the grid display.  You will need to decide what each number represents and what image it maps to.
+        imageFor: function(squareValue) {
+            if (squareValue == 0) {
+                return "img/blank.png";
+            }
+            else if (squareValue == 1){
+                return "img/hit.png";
+            }
+            else {
+                return "img/miss.png";
+            }
+        },
+        //DrKow: The purpose of this function is to take a pair of coordinates and modify the contents of that grid entry.  This is just some code to get you started.  In the final product, it should communicate the row/column to the server so that it can communicate back an updated array of hits/misses.
+        shootSquare: function(r,c) {
+          console.log("Shot square: " + r+" "+c);
+          this.shipArray[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+        },
         click: function() {
             if (this.ship == 0){
                 this.tip = true;
