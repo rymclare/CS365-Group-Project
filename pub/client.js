@@ -23,8 +23,10 @@ var vm = new Vue ({
         fourINP: true,
         fiveIP: false,
         fiveINP: true,
+        rotate: false,
         //DrKow: I put in this line so you have an array to work with.  Having a function to generate this would be a little cleaner, but you can leave it hard-coded if you like.
-        shipArray: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
+        shipArray1: [[0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]],
+        shipArray2: [[0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
     },
     methods: {
         //DrKow: I put this function in so you have a way of mapping a number to an image, for the grid display.  You will need to decide what each number represents and what image it maps to.
@@ -33,6 +35,9 @@ var vm = new Vue ({
                 return "img/blank.png";
             }
             else if (squareValue == 1){
+                return "img/ship.png";
+            }
+            else if (squareValue == 2){
                 return "img/hit.png";
             }
             else {
@@ -40,43 +45,99 @@ var vm = new Vue ({
             }
         },
         //DrKow: The purpose of this function is to take a pair of coordinates and modify the contents of that grid entry.  This is just some code to get you started.  In the final product, it should communicate the row/column to the server so that it can communicate back an updated array of hits/misses.
-        shootSquare: function(r,c) {
+        shootSquare1: function(r,c,squareValue) {
           console.log("Shot square: " + r+" "+c);
-          this.shipArray[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+          if (squareValue == 0){
+            this.shipArray1[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+        }
+        else if (squareValue == 1){
+            this.shipArray1[r].splice(c,1,2); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+        }
         },
-        click: function() {
-            if (this.ship == 0){
-                this.tip = true;
+        shootSquare2: function(r,c,squareValue) {
+            console.log("Shot square: " + r+" "+c);
+            if (squareValue == 0 && this.ship == 2){
+                if (this.rotate == false){
+                    this.shipArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+                    this.shipArray2[(r)].splice((c+1),1,1);
+                    this.twoIP = true;
+                    this.twoINP = false;
+                    this.ship = 0;
+                    console.log("ship = " + this.ship);
+                }
+                else{
+                    this.shipArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+                    this.shipArray2[(r+1)].splice((c),1,1);
+                    this.twoIP = true;
+                    this.twoINP = false;
+                    this.ship = 0;
+                    console.log("ship = " + this.ship);
+                }
+            }
+            else if (squareValue == 0 && this.ship == 3){
+                this.shipArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+                this.shipArray2[(r)].splice((c+1),1,1);
+                this.shipArray2[(r)].splice((c-1),1,1);
+                this.threeIP = true;
+                this.threeINP = false;
+                this.ship = 0;
+                console.log("ship = " + this.ship);
+            }
+            else if (squareValue == 0 && this.ship == 33){
+                this.shipArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+                this.shipArray2[(r)].splice((c+1),1,1);
+                this.shipArray2[(r)].splice((c-1),1,1);
+                this.threeThreeIP = true;
+                this.threeThreeINP = false;
+                this.ship = 0;
+                console.log("ship = " + this.ship);
+            }
+            else if (squareValue == 0 && this.ship == 4){
+                this.shipArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+                this.shipArray2[(r)].splice((c+1),1,1);
+                this.shipArray2[(r)].splice((c+2),1,1);
+                this.shipArray2[(r)].splice((c-1),1,1);
+                this.fourIP = true;
+                this.fourINP = false;
+                this.ship = 0;
+                console.log("ship = " + this.ship);
+            }
+            else if (squareValue == 0 && this.ship == 5){
+                this.shipArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+                this.shipArray2[(r)].splice((c+1),1,1);
+                this.shipArray2[(r)].splice((c+2),1,1);
+                this.shipArray2[(r)].splice((c-1),1,1);
+                this.shipArray2[(r)].splice((c-2),1,1);
+                this.fiveIP = true;
+                this.fiveINP = false;
+                this.ship = 0;
+                console.log("ship = " + this.ship);
+            }
+            else if (squareValue == 1){
+                this.shipArray2[r].splice(c,1,2); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
+            }
+            else if (squareValue == 0){
+                this.shipArray2[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
             }
         },
         selectShipTwo: function() {
             this.ship = 2;
-            this.twoIP = true;
-            this.twoINP = false;
             console.log("Ship two");
         },
         selectShipThree: function() {
             this.ship = 3;
-            this.threeIP = true;
-            this.threeINP = false;
             console.log("Ship three");
         },
         selectShipThreeThree: function() {
             this.ship = 33;
-            this.threeThreeIP = true;
-            this.threeThreeINP = false;
             console.log("Ship three three");
         },
         selectShipFour: function() {
             this.ship = 4;
-            this.fourIP = true;
-            this.fourINP = false;
             console.log("Ship four");
         },
         selectShipFive: function() {
             this.ship = 5;
-            this.fiveIP = true;
-            this.fiveINP = false;
             console.log("Ship five");
         },
     },

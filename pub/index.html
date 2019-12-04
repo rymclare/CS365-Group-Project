@@ -45,19 +45,21 @@
 			</div>
 			<div id="playerOne">
 				<div class="title">
-					<div class="title">
-						<div v-on:click="click" class="cell"><img src="img/blank.png"></div>
-						<div v-on:click="click" class="cell"><img v-bind:src="'img/' + message + '.png'"></div>
-						<div class="cell"><img src="img/b.png"></div>
-						<div class="cell"><img src="img/c.png"></div>
-						<div class="cell"><img src="img/d.png"></div>
-						<div class="cell"><img src="img/e.png"></div>
-						<div class="cell"><img src="img/f.png"></div>
-						<div class="cell"><img src="img/g.png"></div>
-						<div class="cell"><img src="img/h.png"></div>
-						<div class="cell"><img src="img/i.png"></div>
-						<div class="cell"><img src="img/j.png"></div>
-					</div>
+					<div class="cell"><img src="img/blank.png"></div>
+					<div class="cell"><img src="img/a.png"></div>
+					<div class="cell"><img src="img/b.png"></div>
+					<div class="cell"><img src="img/c.png"></div>
+					<div class="cell"><img src="img/d.png"></div>
+					<div class="cell"><img src="img/e.png"></div>
+					<div class="cell"><img src="img/f.png"></div>
+					<div class="cell"><img src="img/g.png"></div>
+					<div class="cell"><img src="img/h.png"></div>
+					<div class="cell"><img src="img/i.png"></div>
+					<div class="cell"><img src="img/j.png"></div>
+				</div>
+				<div class="row" v-for="(row,rowIndex) in shipArray1">
+					<div class="cell"><img src="img/blank.png"></div>
+					<div class="cell" v-on:click="shootSquare1(rowIndex,colIndex,(shipArray1[rowIndex][colIndex]))" v-for="(col,colIndex) in row"><img v-bind:src="imageFor(shipArray1[rowIndex][colIndex])"></div>
 				</div>
 			</div>
 
@@ -76,9 +78,9 @@
 					<div class="cell"><img src="img/i.png"></div>
 					<div class="cell"><img src="img/j.png"></div>
 				</div>
-				<div class="row" v-for="(row,rowIndex) in shipArray">
+				<div class="row" v-for="(row,rowIndex) in shipArray2">
 					<div class="cell"><img src="img/blank.png"></div>
-					<div class="cell" v-on:click="shootSquare(rowIndex,colIndex)" v-for="(col,colIndex) in row"><img v-bind:src="imageFor(shipArray[rowIndex][colIndex])"></div>
+					<div class="cell" v-on:click="shootSquare2(rowIndex,colIndex,(shipArray2[rowIndex][colIndex]))" v-for="(col,colIndex) in row"><img v-bind:src="imageFor(shipArray2[rowIndex][colIndex])"></div>
 				</div>
 			</div>
 			
