@@ -16,6 +16,7 @@ var vm = new Vue ({
         ship2: 0,
         rotate1: false,
         rotate2: false,
+        numArray: [[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]],
         shipArray1: [[2],[3],[33],[4],[5]],
         shipArray2: [[2],[3],[33],[4],[5]],
         //DrKow: I put in this line so you have an array to work with.  Having a function to generate this would be a little cleaner, but you can leave it hard-coded if you like.
@@ -36,6 +37,41 @@ var vm = new Vue ({
             }
             else {
                 return "img/miss.png";
+            }
+        },
+        imageForNum: function(squareValue) {
+            if (squareValue == 1){
+                return "img/one.png";
+            }
+            else if (squareValue == 2){
+                return "img/two.png";
+            }
+            else if (squareValue == 3){
+                return "img/three.png";
+            }
+            else if (squareValue == 4){
+                return "img/four.png";
+            }
+            else if (squareValue == 5){
+                return "img/five.png";
+            }
+            else if (squareValue == 6){
+                return "img/six.png";
+            }
+            else if (squareValue == 7){
+                return "img/seven.png";
+            }
+            else if (squareValue == 8){
+                return "img/eight.png";
+            }
+            else if (squareValue == 9){
+                return "img/nine.png";
+            }
+            else if (squareValue == 10){
+                return "img/ten.png";
+            }
+            else {
+                return "img/blank.png";
             }
         },
         imageForShips: function(squareValue) {
