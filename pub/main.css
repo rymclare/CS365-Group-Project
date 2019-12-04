@@ -8,6 +8,10 @@ body {
 	background-size: 100% 100%;
 }
 
+.cell:hover{
+	background-color: skyblue;
+}
+
 .cell img {
 	width: 100%;
 }
