@@ -28,7 +28,7 @@
 		<div id="app">
 			<div id="trayL">
 				<div>
-					<div v-on:click="selectShipTwo" class="cell"><img v-bind:hidden="twoIsPlaced" src="img/ship2.png"><img v-bind:hidden="twoIsNotPlaced" src="img/blankShip.png"></div>
+					<div class="cell"><img v-on:click="selectShipTwo" v-bind:hidden="twoIsPlaced" src="img/ship2.png"><img v-bind:hidden="twoIsNotPlaced" src="img/blankShip.png"></div>
 				</div>
 				<div>
 					<div v-on:click="selectShipThree" class="cell"><img v-bind:hidden="threeIsPlaced"  src="img/ship3.png"><img v-bind:hidden="threeIsNotPlaced" src="img/blankShip.png"></div>
@@ -41,6 +41,10 @@
 				</div>
 				<div>
 					<div v-on:click="selectShipFive" class="cell"><img v-bind:hidden="fiveIsPlaced" src="img/ship5.png"><img v-bind:hidden="fiveIsNotPlaced" src="img/blankShip.png"></div>
+				</div>
+				<div>
+					<div class="button"><button v-on:click="rotateShip1">Rotate Ship</button></div>
+					<div class="button"><button v-on:click="resetShips1">Reset Ships</button></div>
 				</div>
 			</div>
 			<div id="playerOne">
