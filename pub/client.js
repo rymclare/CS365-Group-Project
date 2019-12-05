@@ -1,15 +1,29 @@
 // The client side.
 
 var socket = io();
-socket.on("sendBack", function(dfs) {
+io.on("connection", function(dfs) {
     console.log("The server returned data");
-    
+});
+
+socket.on("gameState", function(dfs) {
+    vm.gameMode = dfs.gameMode;
+    vm.turn = dfs.turn;
+    vm.message = dfs.message;
+});
+
+socket.on("changeBoard1", function(dfs) {
+    vm.board1[dfs.coord.r][dfs.coord.c] = dfs.val;
+});
+socket.on("changeBoard2", function(dfs) {
+    vm.board2[dfs.coord.r][dfs.coord.c] = dfs.val;
 });
 
 var vm = new Vue ({
     el: "#app",
     data: {
-        message: "blank",
+        gameMode: 0,    //0 = setup mode, 1 = game in play, 2 = game over.
+        turn: 0,
+        message: "",
         a: "a",
         ship1: 0,
         ship2: 0,
@@ -212,6 +226,9 @@ var vm = new Vue ({
             else if (squareValue == 0){
                 this.boardArray1[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
             }
+            if(this.turn == 2) {
+                socket.emit("shoot1", {r:r, c:c});
+            }
         },
         shootSquare2: function(r,c,squareValue) {
             console.log("Shot square: " + r+" "+c);
@@ -317,6 +334,9 @@ var vm = new Vue ({
             else if (squareValue == 0){
                 this.boardArray2[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
             }
+            if(this.turn == 1) {
+                socket.emit("shoot2", {r:r, c:c});
+            }
         },
         selectShip1: function(r, value) {
             this.ship1 = value;
@@ -327,12 +347,20 @@ var vm = new Vue ({
             console.log("Ship " + value);
         },
         sitP1: function() {
-
-            
+            socket.emit("sitAsP1");
         },
         sitP2: function() {
-
+            socket.emit("sitAsP2");
         },
+        commitShips1: function() {
+            socket.emit("commitShips1", this.boardArray1);
+        },
+        commitShips2: function() {
+            socket.emit("commitShips2", this.boardArray2);
+        },
+        restart: function(){
+            socket.emit("restart");
+        }
     },
     computed: {
 
