@@ -1,11 +1,10 @@
 // The client side.
 
-/*var socket = io();
+var socket = io();
 socket.on("sendBack", function(dfs) {
     console.log("The server returned data");
-    vm.board = dfs.board;
-    message = ""
-});*/
+    
+});
 
 var vm = new Vue ({
     el: "#app",
@@ -326,16 +325,16 @@ var vm = new Vue ({
         selectShip2: function(r, value) {
             this.ship2 = value;
             console.log("Ship " + value);
-        }
+        },
+        sitP1: function() {
+
+            
+        },
+        sitP2: function() {
+
+        },
     },
     computed: {
 
     }
 });
-
-/*socket.on("sendBack", function(dfs) {
-    console.log("The server returned data.");
-    vm.board = dfs.board;
-    message = "";
-});
-*/

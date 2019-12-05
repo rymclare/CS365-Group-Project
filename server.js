@@ -8,8 +8,6 @@ var socketio = require("socket.io");
 var io = socketio(server);
 app.use(express.static("pub"));
 
-var board = [];
-var time;
 var turn;               // 1 = "Player1's turn" 2 = "player2's turn" 
 var message = "";
 var player1;            // Player1's name.
@@ -22,6 +20,8 @@ var P1Tray = [];
 var P2Tray = [];
 var p1Ships = [];
 var p2Ships = [];
+var board1 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+var board2 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
 var gameMode;           // 0 = setup mode, 1 = game in play, 2 = game over.
 
 // This class has a ship's id and its size.
@@ -54,30 +54,6 @@ class Player {
     }
     getRecord() {
         return this.record;
-    }
-}
-
-// Fix the board size to be ranks * files.
-function boardSize(ranks, files) {
-    for(i = 0; i < ranks; i++) {
-        if(!board[ranks]) {
-            board[ranks] = [];
-            for(j = 0; j < files; j++) {
-                board[i][j] == null;        
-            }
-        }
-    }
-}
-
-// Fix the tray size.
-function traySize(ranks , files) {
-    for(i = 0; i < ranks; i++) {
-        if(!tray[ranks]) {
-            tray[ranks] = [];
-            for(j = 0; j < files; j++) {
-                tray[i][j] == null;        
-            }
-        }
     }
 }
 
