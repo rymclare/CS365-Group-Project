@@ -1,5 +1,6 @@
 body {
-    background-image: url(img/BS-Background.jpg);
+	background-image: url(img/BS-Background.jpg);
+	background-size: 100% 100%;
 }
 
 .cellTitle {
@@ -80,4 +81,9 @@ body {
 	text-align: center;
 	border: 1px solid skyblue;
 	background-size: 100% 100%;
+}
+#message{
+	display: block;
+	text-align: center;
+	background-color: white;
 }

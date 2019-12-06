@@ -1,7 +1,7 @@
 // The client side.
 
 var socket = io();
-io.on("connection", function(dfs) {
+socket.on("connection", function(dfs) {
     console.log("The server returned data");
 });
 
@@ -12,18 +12,19 @@ socket.on("gameState", function(dfs) {
 });
 
 socket.on("changeBoard1", function(dfs) {
-    vm.board1[dfs.coord.r][dfs.coord.c] = dfs.val;
+    vm.boardArray1[dfs.coord.r][dfs.coord.c] = dfs.val;
 });
 socket.on("changeBoard2", function(dfs) {
-    vm.board2[dfs.coord.r][dfs.coord.c] = dfs.val;
+    vm.boardArray2[dfs.coord.r][dfs.coord.c] = dfs.val;
 });
 
 var vm = new Vue ({
     el: "#app",
     data: {
+        player: 0,      // 0 = not a player, 1 = player1, 2 = player2.
         gameMode: 0,    //0 = setup mode, 1 = game in play, 2 = game over.
         turn: 0,
-        message: "",
+        message: "Setup mode now.",
         a: "a",
         ship1: 0,
         ship2: 0,
@@ -114,19 +115,19 @@ var vm = new Vue ({
             this.rotate2 = !(this.rotate2);
         },
         resetShips1: function() {
-            this.boardArray1 = [[0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+            this.boardArray1 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
             this.shipArray1 = [[2],[3],[33],[4],[5]];
             this.rotate1 = false;
         },
         resetShips2: function() {
-            this.boardArray2 = [[0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+            this.boardArray2 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
             this.shipArray2 = [[2],[3],[33],[4],[5]];
             this.rotate2 = false;
         },
         //DrKow: The purpose of this function is to take a pair of coordinates and modify the contents of that grid entry.  This is just some code to get you started.  In the final product, it should communicate the row/column to the server so that it can communicate back an updated array of hits/misses.
         shootSquare1: function(r,c,squareValue) {
             console.log("Shot square: " + r+" "+c);
-            if (squareValue == 0 && this.ship1 == 2){
+            if (this.gameMode == 0 && this.player == 1 && squareValue == 0 && this.ship1 == 2){
                 if (this.rotate1 == false){
                     this.boardArray1[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray1[(r)].splice((c+1),1,1);
@@ -142,7 +143,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                 }
             }
-            else if (squareValue == 0 && this.ship1 == 3){
+            else if (this.gameMode == 0 && this.player == 1 && squareValue == 0 && this.ship1 == 3){
                 if (this.rotate1 == false){
                     this.boardArray1[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray1[(r)].splice((c+1),1,1);
@@ -160,7 +161,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                 }
             }
-            else if (squareValue == 0 && this.ship1 == 33){
+            else if (this.gameMode == 0 && this.player == 1 && squareValue == 0 && this.ship1 == 33){
                if (this.rotate1 == false){
                     this.boardArray1[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray1[(r)].splice((c+1),1,1);
@@ -178,7 +179,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                }
             }
-            else if (squareValue == 0 && this.ship1 == 4){
+            else if (this.gameMode == 0 && this.player == 1 && squareValue == 0 && this.ship1 == 4){
                if(this.rotate1 == false){
                     this.boardArray1[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray1[(r)].splice((c+1),1,1);
@@ -198,7 +199,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                }
             }
-            else if (squareValue == 0 && this.ship1 == 5){
+            else if (this.gameMode == 0 && this.player == 1 && squareValue == 0 && this.ship1 == 5){
                 if(this.rotate1 == false){
                     this.boardArray1[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray1[(r)].splice((c+1),1,1);
@@ -220,19 +221,21 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                 }
             }
-            else if (squareValue == 1){
+            /*
+            else if (this.gameMode == 1 && this.player == 2 && squareValue == 1){
                 this.boardArray1[r].splice(c,1,2); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
             }
-            else if (squareValue == 0){
+            else if (this.gameMode == 1 && this.player == 2 && squareValue == 0){
                 this.boardArray1[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
             }
-            if(this.turn == 2) {
+            */
+            if(this.gameMode == 1 && this.player == 2 && this.turn == 2) {
                 socket.emit("shoot1", {r:r, c:c});
             }
         },
         shootSquare2: function(r,c,squareValue) {
             console.log("Shot square: " + r+" "+c);
-            if (squareValue == 0 && this.ship2 == 2){
+            if (this.gameMode == 0 && this.player == 2 && squareValue == 0 && this.ship2 == 2){
                 if (this.rotate2 == false){
                     this.boardArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray2[(r)].splice((c+1),1,1);
@@ -250,7 +253,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                 }
             }
-            else if (squareValue == 0 && this.ship2 == 3){
+            else if (this.gameMode == 0 &&  this.player == 2 && squareValue == 0 && this.ship2 == 3){
                 if (this.rotate2 == false){
                     this.boardArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray2[(r)].splice((c+1),1,1);
@@ -268,7 +271,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                 }
             }
-            else if (squareValue == 0 && this.ship2 == 33){
+            else if (this.gameMode == 0 &&  this.player == 2 && squareValue == 0 && this.ship2 == 33){
                if (this.rotate2 == false){
                     this.boardArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray2[(r)].splice((c+1),1,1);
@@ -286,7 +289,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                }
             }
-            else if (squareValue == 0 && this.ship2 == 4){
+            else if (this.gameMode == 0 &&  this.player == 2 && squareValue == 0 && this.ship2 == 4){
                if(this.rotate2 == false){
                     this.boardArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray2[(r)].splice((c+1),1,1);
@@ -296,7 +299,7 @@ var vm = new Vue ({
                     this.shipArray2[3].splice(0);
                     console.log("ship = " + this.ship2);
                }
-               else{
+               else {
                     this.boardArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray2[(r+1)].splice((c),1,1);
                     this.boardArray2[(r+2)].splice((c),1,1);
@@ -306,7 +309,7 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                }
             }
-            else if (squareValue == 0 && this.ship2 == 5){
+            else if (this.gameMode == 0 &&  this.player == 2 && squareValue == 0 && this.ship2 == 5){
                 if(this.rotate2 == false){
                     this.boardArray2[r].splice(c,1,1); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
                     this.boardArray2[(r)].splice((c+1),1,1);
@@ -328,13 +331,15 @@ var vm = new Vue ({
                     console.log("ship = " + this.ship2);
                 }
             }
-            else if (squareValue == 1){
+            /*
+            else if (this.gameMode == 1 &&  this.player == 1 && squareValue == 1){
                 this.boardArray2[r].splice(c,1,2); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
             }
-            else if (squareValue == 0){
+            else if (this.gameMode == 1 &&  this.player == 1 && squareValue == 0){
                 this.boardArray2[r].splice(c,1,3); //This sets element shipArray[r][c] to 3, but does so in a way that Vue knows the array changed, so that the GUI gets updated automatically.
             }
-            if(this.turn == 1) {
+            */
+            if(this.gameMode == 1 &&  this.player == 1 && this.turn == 1) {
                 socket.emit("shoot2", {r:r, c:c});
             }
         },
@@ -347,18 +352,30 @@ var vm = new Vue ({
             console.log("Ship " + value);
         },
         sitP1: function() {
-            socket.emit("sitAsP1");
+            if(this.player == 0) {
+                this.player = 1;
+                socket.emit("sitAsP1");
+            }
         },
         sitP2: function() {
-            socket.emit("sitAsP2");
+            if(this.player == 0) {
+                this.player = 2;
+                socket.emit("sitAsP2");
+            }
         },
-        commitShips1: function() {
-            socket.emit("commitShips1", this.boardArray1);
+        commitShips1: function(b1) {
+            socket.emit("commitShips1", {b1: this.boardArray1});
         },
         commitShips2: function() {
-            socket.emit("commitShips2", this.boardArray2);
+            socket.emit("commitShips2", {b2: this.boardArray2});
         },
         restart: function(){
+            this.boardArray1 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+            this.shipArray1 = [[2],[3],[33],[4],[5]];
+            this.rotate1 = false;
+            this.boardArray2 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+            this.shipArray2 = [[2],[3],[33],[4],[5]];
+            this.rotate2 = false;
             socket.emit("restart");
         }
     },

@@ -8,15 +8,15 @@ var socketio = require("socket.io");
 var io = socketio(server);
 app.use(express.static("pub"));
 
-var turn;               // 1 = "Player1's turn" 2 = "player2's turn" 
-var message = "";
+var turn = 0;               // 1 = "Player1's turn" 2 = "player2's turn" 
+var message = "Setup mode now.";
 var p1Seat;             // Socket object.
 var p2Seat;             // Socket object.
-var isP1Ready;
-var isP2Ready;
+var isP1Ready = false;
+var isP2Ready = false;
 var board1 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
 var board2 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
-var gameMode;           // 0 = setup mode, 1 = game in play, 2 = game over.
+var gameMode = 0;           // 0 = setup mode, 1 = game in play, 2 = game over.
 
 // Return the game state.
 function gameState() {
@@ -36,18 +36,24 @@ function sendGameState() {
 // Change the square state and retutn the value of the square.
 function changeSquareState(board, r, c) {
     if(board == 1) {
-        if(board1[r][c] == 0)       // 0 means "empty".
-            board1[r][c] == -1;     // -1 means "miss".
-        if(board1[r][c] == 1)       // 1 means "occupied".
-            board1[r][c] == 2;      // 2 means "hit".
-        return board1[r][c];
+        if(board1[r][c] == 0) {     // 0 means "empty".
+            board1[r][c] = -1;     // -1 means "miss".
+            return -1;
+         }
+        if(board1[r][c] == 1) {     // 1 means "occupied".
+            board1[r][c] = 2;      // 2 means "hit".
+            return 2;
+        }
     }
     else if(board == 2) {
-        if(board2[r][c] == 0)       // 0 means "empty".
-            board2[r][c] == -1;     // -1 means "miss".
-        if(board2[r][c] == 1)       // 1 means "occupied".
-            board2[r][c] == 2;      // 2 means "hit".
-        return board2[r][c];
+        if(board2[r][c] == 0) {     // 0 means "empty".
+        board2[r][c] = -1;     // -1 means "miss".
+        return -1;
+        }
+        if(board2[r][c] == 1) {     // 1 means "occupied".
+            board2[r][c] = 2;      // 2 means "hit".
+            return 2;
+        }
     }
 }
 
@@ -58,27 +64,31 @@ function checkWinner() {
     for(let i = 0; i < 10 ; i++)
         for(let j = 0; j < 10; j++) {
             if(board1[i][j] == 1) {
+                console.log("at(" + i + ", " + j + ") in Board1."); 
                 p1Lose = false;
-                break;
             }
             if(board2[i][j] == 1) {
+                console.log("at(" + i + ", " + j + ") in Board2."); 
                 p2Lose = false;
-                break;
             }
         }
     if(p1Lose)
         return 2;
-    else if(p2Lose)
+    if(p2Lose)
         return 1;
-    else
+    else {
+        console.log("Neither wins yet.");
         return 0;
+    }
 }
 // Reset.
 function resetGame() {
 	gameMode = 0;
 	isP1Ready = false;
 	isP2Ready = false;
-	turn = 0;
+    turn = 0;
+    board1 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+    board2 = [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
 	message = "The game is now reset."
 }
 
@@ -104,6 +114,7 @@ io.on("connection", function(socket) {
     });
 
     socket.on("sitAsP1", function() {
+        console.log("sitAsP1");
 		if (p1Seat == null) {
 			p1Seat = socket;
 			if (p2Seat == socket) { 
@@ -112,10 +123,14 @@ io.on("connection", function(socket) {
 			else {
 				socket.leave("spectator");
 			}
-		}
+        }
+        console.log("gameMode: " + gameMode);
+        console.log("turn: " + turn);
+        console.log("isP1Ready: " + isP1Ready + ", isP2Ready: " + isP2Ready);
 		sendGameState();
     });
     socket.on("sitAsP2", function() {
+        console.log("sitAsP2");
 		if (p2Seat == null) {
 			p2Seat = socket;
 			if (p1Seat == socket) { 
@@ -124,49 +139,74 @@ io.on("connection", function(socket) {
 			else {
 				socket.leave("spectator");
 			}
-		}
+        }
+        console.log("gameMode: " + gameMode);
+        console.log("turn: " + turn);
+        console.log("isP1Ready: " + isP1Ready + ", isP2Ready: " + isP2Ready);
 		sendGameState();
     });
     socket.on("commitShips1", function(dfc) {
-        if(!p1Seat) {
-            board1 = dfc;
-            isP1Ready = true;
-            if(isP2Ready) {
-                gameMode = 1;
-                turn = 1;
-                message = "Game in play";
-            }
+        console.log("commitShip1");
+        board1 = dfc.b1;
+        isP1Ready = true;
+        if(isP2Ready) {
+            gameMode = 1;
+            turn = 1;
+            message = "Game in play: player1's turn.";
         }
-    });
-    socket.on("commitShips2", function() {
-        if(!p2Seat) {
-            board2 = dfc;
-            isP2Ready = true;
-            if(isP1Ready) {
-                gameMode = 1;
-                turn = 1;
-                message = "Game in play";
-            }
+        else {
+            message = "Player1 is ready.";
         }
-    });
-    socket.on("shoot1", function(coordinate) {
-        io.emit("changeBoard1", {val: changeSquareState(1, dfc.r, dfc.c), coord: coordinate}); // changeSquareState returns the value of the square.
-        if(checkWinner() != 0) {
-            gameMode = 2;
-            turn = 0;
-            message = "Player" + checkWinner() + " Wins!";
-        }
-        turn = 1;
+        console.log("gameMode: " + gameMode);
+        console.log("turn: " + turn);
+        console.log("isP1Ready: " + isP1Ready + ", isP2Ready: " + isP2Ready);
         sendGameState();
     });
-    socket.on("shoot2", function(coordinate) {
-        io.emit("changeBoard2", {val: changeSquareState(2, dfc.r, dfc.c), coord: coordinate});
+    socket.on("commitShips2", function(dfc) {
+        console.log("commitShip2");
+        board2 = dfc.b2;
+        isP2Ready = true;
+        if(isP1Ready) {
+            gameMode = 1;
+            turn = 1;
+            message = "Game in play: player1's turn.";
+        }
+        else {
+            message = "Player2 is ready.";
+        }
+        console.log("gameMode: " + gameMode);
+        console.log("turn: " + turn);
+        console.log("isP1Ready: " + isP1Ready + ", isP2Ready: " + isP2Ready);
+        sendGameState();
+    });
+    socket.on("shoot1", function(dfc) {
+        console.log("shoot1");
+        io.emit("changeBoard1", {val: changeSquareState(1, dfc.r, dfc.c), coord: dfc}); // changeSquareState returns the value of the square.
         if(checkWinner() != 0) {
+            console.log("gameOver");
             gameMode = 2;
             turn = 0;
-            message = "Player" + checkWinner() + " Wins!";
+            message = "Game Over! Player" + checkWinner() + " Wins!";
         }
-        turn = 2;
+        else {
+            turn = 1;
+            message = "Game in play: Player1's turn";
+        }
+        sendGameState();
+    });
+    socket.on("shoot2", function(dfc) {
+        console.log("shoot2");
+        io.emit("changeBoard2", {val: changeSquareState(2, dfc.r, dfc.c), coord: dfc});
+        if(checkWinner() != 0) {
+            console.log("gameOver");
+            gameMode = 2;
+            turn = 0;
+            message = "Game Over! Player" + checkWinner() + " Wins!";
+        }
+        else {
+            turn = 2;
+            message = "Game in play: Player2's turn";
+        }
         sendGameState();
     });
     socket.on("restart", function() {

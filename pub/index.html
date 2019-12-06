@@ -28,14 +28,14 @@
 		<div id="app">
 			<div id="trayL">
 				<div class="row" v-for="(row,rowIndex) in shipArray1">
-						<div class="cell"><img v-on:click="selectShip1(rowIndex,(shipArray1[rowIndex]))" v-bind:src="imageForShips(shipArray1[rowIndex])"></div>
+						<div class="cell"><img v-if="gameMode == 0 || gameMode == 2" v-on:click="selectShip1(rowIndex,(shipArray1[rowIndex]))" v-bind:src="imageForShips(shipArray1[rowIndex])"></div>
 				</div>
 				<div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="rotateShip1">Rotate Ship</button></div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="resetShips1">Reset Ships</button></div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="sitP1">Sit as player1</button></div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="commitShips1">CommitShips1</button></div>
-					<div class="button"><button v-if="gameMode === 2" v-on:click="restart">Play Again</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="rotateShip1">Rotate Ship</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="resetShips1">Reset Ships</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="sitP1">Sit as player1</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="commitShips1">Ready</button></div>
+					<div class="button"><button v-if="gameMode == 2" v-on:click="restart">Play Again</button></div>
 				</div>
 			</div>
 			<div id="playerOne">
@@ -81,15 +81,18 @@
 			
 			<div id="trayR">
 				<div class="row" v-for="(row,rowIndex) in shipArray2">
-						<div class="cell"><img v-on:click="selectShip2(rowIndex,(shipArray2[rowIndex]))" v-bind:src="imageForShips(shipArray2[rowIndex])"></div>
+						<div class="cell"><img v-if="gameMode == 0 || gameMode == 2" v-on:click="selectShip2(rowIndex,(shipArray2[rowIndex]))" v-bind:src="imageForShips(shipArray2[rowIndex])"></div>
 				</div>
 				<div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="rotateShip2">Rotate Ship</button></div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="resetShips2">Reset Ships</button></div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="sitP2">Sit as player2</button></div>
-					<div class="button"><button v-if="gameMode === 0" v-on:click="commitShips2">Commit ships2</button></div>
-					<div class="button"><button v-if="gameMode === 2" v-on:click="restart">Play Again</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="rotateShip2">Rotate Ship</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="resetShips2">Reset Ships</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="sitP2">Sit as player2</button></div>
+					<div class="button"><button v-if="gameMode == 0" v-on:click="commitShips2">Ready</button></div>
+					<div class="button"><button v-if="gameMode == 2" v-on:click="restart">Play Again</button></div>
 				</div>
+			</div></br>
+			<div id="message">
+				<h2>{{message}}</h2>
 			</div>
 		</div>
 	</body>
