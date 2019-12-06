@@ -1,6 +1,7 @@
 body {
 	background-image: url(img/BS-Background.jpg);
-	background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: auto;
 }
 
 .cellTitle {
@@ -85,5 +86,5 @@ body {
 #message{
 	display: block;
 	text-align: center;
-	background-color: white;
+	background-color: transparent;;
 }
