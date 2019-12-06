@@ -1,6 +1,7 @@
 body {
 	background-image: url(img/BS-Background.jpg);
-	background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: auto;
 }
 
 
@@ -93,7 +94,12 @@ body {
 
 .center {
 	text-align: center;
+<<<<<<< HEAD
 	background-color: white;
 	font-size: 500%;
 
 }
+=======
+	background-color: transparent;;
+}
+>>>>>>> 4e5e08b5d9c70f08692971c11438a5d75a5fc00a
