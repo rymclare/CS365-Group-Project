@@ -3,6 +3,7 @@ body {
 	background-size: 100% 100%;
 }
 
+
 .cellTitle {
 	display: table-cell;
 	border: 1px solid skyblue;
@@ -84,6 +85,15 @@ body {
 }
 #message{
 	display: block;
+	clear: both;
+	width: 100%;
 	text-align: center;
 	background-color: white;
+}
+
+.center {
+	text-align: center;
+	background-color: white;
+	font-size: 500%;
+
 }
